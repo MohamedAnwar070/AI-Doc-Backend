@@ -1,0 +1,23 @@
+FROM pdf_ocr_backend:base
+
+# We are extending the v0.11 image which ALREADY HAS the models downloaded
+# inside the /app/.paddleocr directory.
+
+USER root
+
+# Just copy the newly modified Python files over the old ones
+COPY . /app
+
+# Make sure permissions are still correct
+RUN chown -R appuser:appuser /app
+
+# Switch back to the safe user
+USER appuser
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-8001}/health || exit 1
+
+EXPOSE 8001
+
+# Run the app! (Using environment variables set in k8s deployment)
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8001} --workers ${UVICORN_WORKERS:-1} --log-level info"]

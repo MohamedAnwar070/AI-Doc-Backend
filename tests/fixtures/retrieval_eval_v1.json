@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "description": "Seed eval set for voice/chat retrieval (expand toward ~50 queries).",
+  "queries": [
+    {
+      "id": "resume_summary",
+      "query": "Okay, summarize this person's resume and tell me what he needs",
+      "lang": "en",
+      "intent": "summary",
+      "must_keep_terms": ["summarize", "resume"],
+      "must_drop_terms": ["okay", "he"]
+    },
+    {
+      "id": "property_summary",
+      "query": "summarize this property document",
+      "lang": "en",
+      "intent": "summary",
+      "notes": "Must not classify as field_lookup solely due to property"
+    },
+    {
+      "id": "survey_no",
+      "query": "what is survey no 42",
+      "lang": "en",
+      "intent": "survey_lookup",
+      "must_keep_terms": ["survey", "42"]
+    },
+    {
+      "id": "ta_simple",
+      "query": "ithu ennanu sollu",
+      "lang": "ta",
+      "notes": "Tanglish fillers should strip; content may be empty → fallback"
+    }
+  ]
+}

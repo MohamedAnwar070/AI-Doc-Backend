@@ -1,0 +1,20 @@
+# Core web framework + audio I/O
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic>=2.12.0,<3.0.0
+numpy>=1.24.0
+soundfile>=0.12.1
+librosa>=0.10.1
+huggingface-hub>=0.36.0
+python-multipart>=0.0.9
+
+# STT: Faster-Whisper
+faster-whisper>=1.0.3
+ctranslate2>=3.20.0
+
+# TTS: Piper ONNX (fast CPU, Python 3.12+ compatible)
+piper-tts>=1.2.0
+
+# VAD: Silero v4
+silero-vad>=5.1
+onnxruntime>=1.17.0

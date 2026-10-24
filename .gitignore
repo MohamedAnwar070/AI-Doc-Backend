@@ -1,0 +1,92 @@
+# Python
+.venv
+.venv/
+.venv-*/
+.venv-paddle
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment & Env Secrets
+venv/
+ENV/
+.env
+.env.*
+!.env.example
+env/
+
+# IDE & AI Agent Directories
+.vscode/
+.idea/
+.claude/
+.windsurf/
+.kimchi/
+*.swp
+*.swo
+*~
+
+# Credentials & Secrets
+google-cred/
+*.service-account.json
+*docai-key*.json
+*visionai-key*.json
+
+# Uploads, Outputs, and Local Caches
+uploads/*
+!uploads/.gitkeep
+outputs/*
+!outputs/.gitkeep
+storage/embedding_cache/
+scratch/
+
+# Internal / Scratch / Client Requirement Docs
+db-sample-direclty-delete.txt
+to-reindex-alldocs-with-new-embedding-model.txt
+enhance-further.md
+scripts/admin-create-cmd.txt
+services/service-running-cmd.txt
+services/paddle-vl/*.txt
+services/voice/UPGRADE.md
+services/voice/VOICE_PLAN.md
+services/voice/voice-samples-test/
+docs/TENKASI-DEPLOY-BANGALORE-AI.md
+docs/requirement-docs/
+docs/plan-was-mad-executed/
+docs/verdict-06-07-26
+docs/voice-api-handoff-guide.docx
+docs/voice-rag-execution-plan-2026-07.md
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Docker
+.dockerignore
+
+# Kubernetes manifests
+k8s/

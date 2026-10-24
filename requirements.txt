@@ -1,0 +1,80 @@
+# =============================================================================
+# Main backend requirements
+# =============================================================================
+# Production deployment guidance: keep OCR / embedding / LLM models OUT of this
+# image. Run them as separately-hosted microservices (see OCR_DEPLOYMENT.md):
+#
+#   • OCR_ENGINE=remote → ocr/remote_engine.py talks HTTP to your OCR service
+#   • EMBEDDING_MODEL_URL → embedding_api.py (separate container)
+#   • AI_MODEL_URL / HF_INFERENCE_* → LLM endpoint
+#
+# Local PaddleOCR is kept here for development / fallback only. In production
+# images, OCR_ENGINE=remote and the paddleocr line below can be commented out.
+# =============================================================================
+
+# ── Web framework ─────────────────────────────────────────────────────────────
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+pydantic==2.12.5
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+
+# ── PDF + image handling ──────────────────────────────────────────────────────
+PyMuPDF==1.23.8
+pdfplumber>=0.10.0
+Pillow==10.2.0
+
+# ── Image preprocessing pipeline (core/image_preprocessor.py) ────────────────
+# OpenCV-headless gives us deskew (Hough) and faster ops without GUI deps.
+# scikit-image provides Sauvola adaptive binarisation.
+opencv-python-headless>=4.9.0
+scikit-image>=0.22.0
+numpy>=1.24.0
+
+# ── OCR engines ───────────────────────────────────────────────────────────────
+
+# PaddleOCR-VL-1.5 — Vision Language Model (OCR_ENGINE=paddle_vl)
+# Requires NVIDIA GPU with >=8 GB VRAM.  Comment out if unused.
+transformers==4.57.1
+accelerate>=0.30.0
+bitsandbytes>=0.43.0  # optional: 8-bit / 4-bit quantisation for low VRAM
+einops>=0.8.0
+torchvision
+
+# Google Cloud Document AI (OCR_ENGINE=google_docai). Comment out if unused.
+google-cloud-documentai>=2.29.0
+
+# Sur OCR(OCR_ENGINE=sur_ocr). Local detection + recognition engine.
+surya-ocr>=0.17.0
+
+# ── HTTP / LLM / embedding clients ────────────────────────────────────────────
+httpx==0.27.0
+openai>=1.12.0
+scikit-learn==1.4.0
+sentence-transformers==5.4.1  # In-process embeddings (core/embeddings.py) + embedding_api
+huggingface-hub==0.36.0
+
+# ── Auth / database ───────────────────────────────────────────────────────────
+PyJWT==2.8.0
+bcrypt==4.0.1
+passlib[bcrypt]==1.7.4
+pymongo==4.8.0
+motor==3.5.1
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+aiofiles==23.2.1
+websockets==13.1
+
+# ── Excel Support ─────────────────────────────────────────────────────────────
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# ── Word Support ──────────────────────────────────────────────────────────────
+python-docx>=1.1.0
+
+# ── Voice Conversation (STT + TTS) ───────────────────────────────────────────
+faster-whisper>=1.0.0
+kokoro>=0.8.0
+misaki[en]>=0.8.0
+soundfile>=0.12.0
